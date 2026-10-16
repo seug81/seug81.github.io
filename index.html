@@ -1,670 +1,774 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Links — коллекция полезных ссылок</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --card:#ffffff; --fg:#111827; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#2563eb; --accent-soft:#eef4ff;
+    --header:rgba(255,255,255,.86); --radius:14px;
+  }
+  html[data-theme="dark"]{
+    --bg:#0e1116; --card:#161a21; --fg:#e8eaed; --muted:#98a2b3;
+    --line:#252b35; --accent:#6aa6ff; --accent-soft:#1a2333;
+    --header:rgba(14,17,22,.86);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--fg);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1440px;margin:0 auto;padding:0 16px}
 
-<!-- saved from url=(0018)http://seug.bl.ee/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Links</title>
+  /* ---------- header ---------- */
+  .top{
+    position:sticky; top:0; z-index:20;
+    background:var(--header); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{display:flex; align-items:center; gap:14px; padding:12px 16px; max-width:1440px; margin:0 auto}
+  .brand{
+    display:flex; align-items:center; gap:8px; font-weight:700; font-size:17px;
+    text-decoration:none; white-space:nowrap; letter-spacing:.2px;
+  }
+  .search{flex:1; position:relative}
+  .search input{
+    width:100%; padding:10px 14px; border-radius:11px;
+    border:1px solid var(--line); background:var(--card); color:var(--fg);
+    font-size:14px; outline:none; transition:border-color .15s, box-shadow .15s;
+  }
+  .search input:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+  .icon-btn{
+    width:40px; height:40px; flex:0 0 40px; border-radius:11px; cursor:pointer;
+    border:1px solid var(--line); background:var(--card); color:var(--fg);
+    font-size:17px; line-height:1; transition:background .15s, transform .1s;
+  }
+  .icon-btn:hover{background:var(--accent-soft)}
+  .icon-btn:active{transform:scale(.95)}
 
-<style type="text/css" title="Cool table">
- TD {text-decoration : none; font-size:15px; line-height:12pt;}
- TR {text-decoration : none; font-size:15px; line-height:12pt;}
- A {text-decoration : none; font-size:13px; }
+  /* ---------- chips ---------- */
+  .chips{
+    display:flex; gap:8px; overflow-x:auto; padding:0 16px 12px;
+    max-width:1440px; margin:0 auto; scrollbar-width:none;
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto; padding:7px 13px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line); background:var(--card); color:var(--muted);
+    font-size:13px; font-weight:500; white-space:nowrap;
+    transition:all .15s;
+  }
+  .chip:hover{color:var(--fg); border-color:var(--accent)}
+  .chip.active{background:var(--accent); border-color:var(--accent); color:#fff}
+
+  /* ---------- sections ---------- */
+  main{padding:24px 16px 60px; max-width:1440px; margin:0 auto}
+  .section{margin-bottom:38px; scroll-margin-top:120px}
+  .section h2{
+    display:flex; align-items:center; gap:10px;
+    font-size:19px; font-weight:700; margin:0 0 16px; letter-spacing:.2px;
+  }
+  .section h2 .ico{font-size:20px}
+  .cnt{
+    font-size:12px; font-weight:600; color:var(--muted);
+    background:var(--card); border:1px solid var(--line);
+    padding:2px 8px; border-radius:999px;
+  }
+  .groups{
+    display:grid; gap:14px;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    align-items:start;
+  }
+  .card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:14px 16px 16px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .card:hover{border-color:var(--accent); box-shadow:0 6px 22px -14px rgba(0,0,0,.4)}
+  .card h3{
+    margin:0 0 10px; font-size:13px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.7px; color:var(--muted);
+  }
+  .links{display:flex; flex-wrap:wrap; gap:6px}
+
+  /* ---------- link + icon ---------- */
+  .link{
+    display:inline-flex; align-items:center; gap:7px;
+    text-decoration:none; font-size:13.5px;
+    padding:4px 10px 4px 7px; border-radius:9px;
+    border:1px solid var(--line); background:transparent;
+    transition:all .13s;
+  }
+  .link .fav{
+    width:16px; height:16px; flex:0 0 16px;
+    border-radius:4px; object-fit:contain;
+    display:block;
+  }
+  .link:hover{
+    background:var(--accent); border-color:var(--accent); color:#fff;
+    transform:translateY(-1px);
+  }
+  mark{background:var(--accent-soft); color:var(--accent); border-radius:4px; padding:0 2px}
+  .link:hover mark{background:rgba(255,255,255,.25); color:#fff}
+
+  .empty{text-align:center; color:var(--muted); padding:80px 0; font-size:16px}
+  .foot{
+    border-top:1px solid var(--line); padding:20px 16px 40px;
+    color:var(--muted); font-size:13px; text-align:center;
+    max-width:1440px; margin:0 auto;
+  }
+  .foot b{color:var(--fg)}
+  @media (max-width:640px){
+    .brand span{display:none}
+    .groups{grid-template-columns:1fr}
+    .section h2{font-size:17px}
+  }
 </style>
-
 </head>
-
-
-<body background="./Links_files/back.jpg" bgcolor="999999" link="CCDDAA" text="FFFFDD" vlink="CCDDAA">
-
-
-
-
-
-
-
-<table align="center" border="1">
-<tbody valign="top"> 
-
-<tr>
-<td rowspan="1" width="50%">
-<h4>Интернет и СМИ: </h4>
-<ul type="disc">
-
-<li> Поиск:
- [<a href="http://www.yandex.ru/">Яndex</a>] 
- [<a href="http://www.google.ru/">Google</a>] 
- [<a href="http://www.bing.com/">Bing</a>] 
- [<a href="http://www.yahoo.com/">Yahoo</a>] 
- [<a href="http://www.rambler.ru/">Rambler</a>] 
- [<a href="http://www.altavista.com/">Altavista</a>] 
- [<a href="http://aport.ru/">Апорт</a>] 
- ftp:
- [<a href="http://filesearch.ru/">FileSearch</a>] 
-
-
-</li><li> Почта: 
- [<a href="http://www.mail.ru/">Mail.ru</a>]
- [<a href="http://mail.google.com/">GMail</a>]
- [<a href="http://mail.yandex.ru/">Яndex</a>]
- [<a href="http://mail.rambler.ru/">Rambler</a>]
- [<a href="http://mail.qip.ru/">Qip</a>]
-
-
-</li><li> Новости:
- [<a href="https://www.gazeta.ru/">Газета.ru</a>]
- [<a href="https://www.newsru.com/">NEWSru.com</a>]
- [<a href="https://ria.ru/">РИА</a>]
- [<a href="https://meduza.io/">Meduza</a>]
- [<a href="https://rns.online/">RNS</a>]
- [<a href="https://life.ru/">L!FE</a>]
- [<a href="https://www.rbc.ru/">RBC</a>]
- [<a href="https://lenta.ru/">Lenta.ru</a>]
- [<a href="https://utro.ru/">Утро.ru</a>]
- [<a href="https://dni.ru/">Дни.ru</a>]
- [<a href="https://regnum.ru/">Regnum</a>]
-
-</li><li> Украина:
- [<a href="https://sharij.net/">Шарий.NET</a>
- (А<a href="https://twitter.com/anatoliisharii/">tw</a>,<a href="https://www.facebook.com/anatolijsharij">fb</a>)
- (О<a href="https://twitter.com/bondarenkoolgaa">tw</a>,<a href="https://www.facebook.com/bondarenkoolyaa">fb</a>)
- (Ф<a href="https://twitter.com/FeyginMark">tw</a>,<a href="https://www.facebook.com/mark.feygin.z">fb</a>)]
- [<a href="https://strana.ua/">Страна.UA</a>]
-
-
-</li><li> Карты:
- [<a href="https://yandex.ru/maps/">Яндекс</a>
- (<a href="https://yandex.ru/maps/213/moscow/">пробки</a> - <a href="http://www.iprobki.ru/">архив</a> ,<a href="https://yandex.ru/metro/moscow">метро</a>)]
- [<a href="https://www.google.com/maps">Google</a>
- (<a href="https://www.google.com/maps/@55.7328557,37.4479459,10.29z">Москва</a>)]
-
- [<a href="http://www.openstreetmap.org/">OpenStreetMap</a>]
- [<a href="http://probki.vesti.ru/">Вести-пробки</a>]
- [<a href="http://msk.rusavtobus.ru/">Транспорт</a>]
- [<a href="http://www.metro.ru/">Метро</a>]
-
-</li><li>Перевод:
- [<a href="https://translate.yandex.ru/">Яндекс</a>]
- [<a href=" https://translate.google.ru">Google</a>]
- [<a href="https://www.translate.ru/">Promt</a>]
-
-</li><li> Разное:
- [<a href="http://2ip.ru/">IP</a>]
- [<a href="https://yandex.ru/internet/">IP Yandex</a>]
- [<a href="https://www.gosuslugi.ru/">Госуслуги</a>]
- [<a href="https://yandex.ru/time/">Яndex.Время</a>]
- [<a href="http://www.tutu.ru">Электрички</a>]
- [<a href="http://hlebopechka.ru/index.php?option=com_smf&amp;Itemid=126&amp;topic=145131.0">Рецепты</a>]
- [<a href="http://www.russianpost.ru/resp_engine.aspx?Path=rp/servise/ru/home/postuslug/trackingpo">Почта России</a>
-(<a href="http://app3.hongkongpost.com/CGI/mt/enquiry.jsp">Гонконг</a>)]
-
-</li><li> Автомобили:
- [<a href="https://www.exist.ru/">Exist</a>]
- [<a href="https://www.kia.ru/">KIA</a>
- (<a href="http://ceedclub.ru/">ceedclub</a>,
- <a href="http://www.kia-ceed.info/">Ceed Info</a>)]
- [<a href="http://www.hyundai.ru/">Hyundai</a>]
- [<a href="http://ru-vederko.livejournal.com/">Синие ведерки</a>]
- [<a href="http://www.autofed.ru/">ФАР</a> 
- (<a href="http://www.far-msk.ru/">Москва</a>)]
- [<a href="http://www.gai.ru/">ГАИ.РУ</a>]
- [<a href="http://www.auto.ru/">Auto.RU</a>]
- [<a href="http://www.autoreview.ru/">AutoReview</a>]
- [<a href="http://www.autonews.ru/">AutoNews</a>]
- [<a href="http://autoweek.ru/">AutoWeek</a>]
- [<a href="http://www.drive.ru/">Drive.ru</a>]
- [<a href="http://medved01.livejournal.com/">medved01</a>]
- [<a href="http://www.stopnegoni.ru/">STOP! Не гони</a>]
- [<a href="http://dtp-video.ru/">dtp-video.ru</a>]
- [<a href="http://pressa.tv/dtp/">ПрессаТВ</a>]
- [<a href="http://www.rucrash.com/">RuCrash</a>]
- [<a href="http://rusdtp.ru/">RusDTP</a>]
-
- 
-</li><li> Транcпорт:
- [ст.Подольск 
- (<a href="http://rasp.yandex.ru/search/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;fromId=c10747&amp;toName=52+%D0%BA%D0%BC&amp;toId=s9745615&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">52км</a>-<a href="http://rasp.yandex.ru/search/?fromName=52+%D0%BA%D0%BC&amp;fromId=s9745615&amp;toName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;toId=c10747&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">обратно</a>,
- <a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;fromId=c10747&amp;toName=%D0%A6%D0%B0%D1%80%D0%B8%D1%86%D1%8B%D0%BD%D0%BE&amp;toId=&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">Царицино</a>-<a href="http://rasp.yandex.ru/search/suburban/?toName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;fromName=%D0%A6%D0%B0%D1%80%D0%B8%D1%86%D1%8B%D0%BD%D0%BE&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8&amp;toId=c10747&amp;fromId=">обратно</a>,
- <a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;fromId=c10747&amp;toName=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9+%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C&amp;toId=s9601943&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">КрСтроитель</a>-<a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9+%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C&amp;fromId=s9601943&amp;toName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;toId=c10747&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">обратно</a>,
- <a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;fromId=c10747&amp;toName=%D0%A1%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%BB%D0%B8%D1%82&amp;toId=&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">Станколит</a>-<a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%A1%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%BB%D0%B8%D1%82&amp;fromId=&amp;toName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&amp;toId=c10747&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">обратно</a>)]
- [ст.Кутузовская 
- (<a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9A%D1%83%D1%82%D1%83%D0%B7%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F&amp;fromId=&amp;toName=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9+%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C&amp;toId=s9601943&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">КрСтроитель</a>-<a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9+%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C&amp;fromId=s9601943&amp;toName=%D0%9A%D1%83%D1%82%D1%83%D0%B7%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F&amp;toId=&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">обратно</a>,
- <a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%9A%D1%83%D1%82%D1%83%D0%B7%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F&amp;fromId=&amp;toName=%D0%A6%D0%B0%D1%80%D0%B8%D1%86%D0%B8%D0%BD%D0%BE&amp;toId=&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">Царицино</a>-<a href="http://rasp.yandex.ru/search/suburban/?fromName=%D0%A6%D0%B0%D1%80%D0%B8%D1%86%D1%8B%D0%BD%D0%BE&amp;fromId=&amp;toName=%D0%9A%D1%83%D1%82%D1%83%D0%B7%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F&amp;toId=&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">обратно</a>)]
- [435 (<a href="http://rasp.yandex.ru/search/?toName=%D0%BC.+%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F&amp;fromName=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8&amp;toId=s9744864&amp;fromId=s9741329">Подольск</a>,
- <a href="http://rasp.yandex.ru/search/?fromName=%D0%BC.+%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F&amp;fromId=s9744864&amp;toName=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9&amp;toId=s9741329&amp;when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8">Москва</a>)]
- 
- 
- 
-</li><li> Финансы:
- [<a href="https://www.psbank.ru/">Промсвязьбанк</a>
- (<a href="https://ib.psbank.ru/">Банкир</a>)]
- [<a href="https://www.sberbank.ru/ru/person">Сбербанк</a>
- (<a href="https://online.sberbank.ru/CSAFront/index.do">Online</a>)]
- [<a href="https://www.raiffeisen.ru/">Райффайзен</a>
- (<a href="https://www.raiffeisen.ru/retail/consumerloans/calculator/">калк</a>)]
- [<a href="https://www.contact-sys.com/">Contact</a>]
- [<a href="http://www.profinance.ru/currency_usd.asp">Курсы валют</a>
- (<a href="https://www.profinance.ru/currency_usd.asp?s=EURRUB">EUR/RUB</a>)]
-
-</li><li> Погода:
- [<a href="http://www.gismeteo.ru/">GisMeteo</a>
- (<a href="http://www.gismeteo.ru/city/hourly/4368/">1</a>,
- <a href="http://www.gismeteo.ru/city/daily/4368/">3</a>,
- <a href="http://www.gismeteo.ru/city/daily/4368/2/">5</a>,
- <a href="http://www.gismeteo.ru/city/daily/4368/4/">7</a>,
- <a href="http://www.gismeteo.ru/city/weekly/4368/">14</a>,
- <a href="http://month.gismeteo.ru/forecast.php?town=27612&amp;index=27612">30</a>,
- <a href="http://www.gismeteo.ru/city/daily/11934/">В</a>,
- <a href="http://www.gismeteo.ru/city/daily/11477/">К</a>,
- <a href="http://www.gismeteo.ru/city/daily/4079/">СП</a>)]
- [<a href="https://yandex.ru/pogoda/moscow/">Яndex</a>
- (<a href="https://yandex.ru/pogoda/volzhskiy/">Волжский</a>,
- <a href="https://yandex.ru/pogoda/kireevsk/">Киреевск</a>,
- <a href="https://yandex.ru/pogoda/saint-petersburg/">СП</a>)]
- [<a href="https://weather.rambler.ru/">Rambler</a>]
- [<a href="http://www.meteo-tv.ru/">МетеоТВ</a>]
-
-
-</li><li> P2P:
- [<a href="http://rutracker.org/forum/">RuTracker.org</a>]
- [<a href="http://rgfootball.net/">RGFootball</a>]
-  [<a href="https://nnmclub.to/">NNM-club</a>
- (<a href="https://nnmclub.to/forum/tracker.php">r</a>)]
- [<a href="http://riperam.org/">Riper.AM</a>
- (<a href="http://riperam.org/search.php?search_id=egosearch&amp;torrent=all">r</a>)]
- [<a href="http://pirat.ca/forum/index.php">Pirat.ca</a>]
- [<a href="https://www.lostfilm.tv/">LostFilm</a>
- (<a href="https://www.lostfilm.tv/new/">r</a>)]
- [<a href="http://newstudio.tv/">NewStudio</a>]
- [<a href="http://thepiratebay.org/">ThePirateBay</a>]
- [<a href="http://rusdivx.net/ibf/index.php">RDA</a>
- (<a href="http://kvn.rusdivx.net/browse.php">КВН</a>)]
- [<a href="http://kinozal.tv/">Кинозал</a>
- (<a href="http://kinozal.tv/bookmarks.php?type=1">Закладки</a>)]
-</li></ul>
-
-</td><td>
-<h4>Информационные технологии:</h4>
-<ul type="disc"> 
-<li> Tools:
-[<a href="http://jsoneditoronline.org/">JSON</a>]
-[<a href="https://beautifier.io/">JS Beautifier</a>]
-[<a href="https://www.freeformatter.com/">Formatter</a>]
-
-<li> Work:
- [<a href="https://owa.itgrp.ru/owa/">OWA</a>]
-[<a href="https://app.v15.touchpoint-analytics.ru/login">TouchPoint</a>
-(<a href="https://app.v15.touchpoint-analytics.xyz/login/">qa</a>)
- (<a href="https://app.touchpoint-analytics.xyz/login/">1.0</a>)
- (<a href="https://app.touchpoint-analytics.xyz/login/">1.0 qa</a>)
- ]
-[<a href="https://3i-analytics.ru/">3i Analytics</a>]
-[<a href="https://data-plexus.ru/">Data Plexus</a>]
-[<a href="http://10.250.83.235/users/sign_in">Git</a>]
-[<a href="http://10.250.83.230/redmine/">Redmine</a>]
-[<a href="http://10.250.83.230/swagger_apis/">SwaggersAPI</a>]
-
-
-</li><li> Новости, обзоры:
- [<a href="https://3dnews.ru/">3DNews</a>]
- [<a href="https://www.ixbt.com/">Ixbt</a>
- (<a href="http://forum.ixbt.com/">f</a>)]
- [<a href="https://www.computerra.ru/">Computerra</a>]
- [<a href="http://www.ferra.ru/">Ferra</a>]
- [<a href="https://www.hwp.ru/">HWP</a>]
- [<a href="http://www.mediatory.ru/">Mediatory</a>]
- [<a href="https://overclockers.ru/">Overclockers</a>
- (<a href="https://www.overclockers.com/">com</a>)]
- [<a href="http://www.thg.ru/">THG</a>]
- [<a href="http://www.cnews.ru/">CNews</a>]
-
-</li><li> <a href="https://habr.com/">Хабрахабр</a>:
- [<a href="https://habr.com/hub/mobile_dev/">Mobile dev</a>]
- [<a href="https://habr.com/hub/perl/">Perl</a>]
- [<a href="https://habr.com/hub/cpp/">С++</a>]
- [<a href="https://habr.com/hub/algorithms/">Алгоритмы</a>]
- [<a href="https://habr.com/hub/infosecurity/">Безопасность</a>]
- [<a href="https://habr.com/hub/popular_science/">Научно-популярное</a>]
- [<a href="https://habr.com/hub/sys_admin/">Сисадмин</a>]
-
-
-
-</li><li> Mobile:
- [<a href="http://www.4pda.ru/">4PDA.ru</a> (<a href="http://4pda.ru/forum/index.php?act=idx">Forum</a>) (<a href="http://4pda.ru/forum/index.php?showforum=281">Android</a>) (<a href="http://4pda.ru/forum/index.php?showtopic=194568">HTC DHD</a>,<a href="http://4pda.ru/forum/index.php?showtopic=194571">Прошивка</a>)
-(<a href="http://4pda.ru/forum/index.php?showtopic=226870">SGT 8.9</a>,<a href="http://4pda.ru/forum/index.php?showtopic=279254">Прошивка</a>)]
-
- [<a href="http://forum.xda-developers.com/index.php">XDA</a> (<a href="http://forum.xda-developers.com/forumdisplay.php?f=564">Android</a>) (<a href="http://forum.xda-developers.com/forumdisplay.php?f=754">HTC DHD</a>,
-<a href="http://forum.xda-developers.com/showthread.php?t=840040">ARHD</a>) (<a href="http://forum.xda-developers.com/forumdisplay.php?f=1438">Samsung GT 8.9</a>)]
-
- [<a href="http://www.hpc.ru/">HPC.ru</a>]
- [<a href="http://www.spbinsight.com/">SPB Insigth</a>]
-
-</li><li> Торг:
- [<a href="https://market.yandex.ru/">Yandex</a>]
- [<a href="http://www.price.ru/">Price.ru</a>]
- [<a href="http://www.pleer.ru/">Pleer.ru</a>]
- [<a href="https://just.ru/">Джаст</a>]
- [<a href="http://www.ulmart.ru/">Юлмарт</a>]
- [<a href="http://www.fcenter.ru/">FCenter</a>
- (<a href="http://www.fcenter.ru/products.shtml?eshop">pr</a>)]
- [<a href="http://www.nix.ru/">NIX</a>
- (<a href="http://www.nix.ru/price/price.html">pr</a>)]
- [<a href="http://www.oldi.ru/">Oldi</a>
- (<a href="http://www.oldi.ru/catalog/all/">pr</a>)]
- [<a href="http://www.citilink.ru/">Ситилинк</a>
- (<a href="http://www.citilink.ru/catalog/">pr</a>)]
- [<a href="http://www.flashcom.ru/">Flash</a>]
- [<a href="http://www.kns.ru/">KNS</a>]
- [<a href="http://www.mvideo.ru/">МВидео</a>]
- [<a href="http://www.eldorado.ru/">Эльдорадо</a>]
- [<a href="https://www.technopark.ru/">Техгопарк</a>]
-
-
-
-</li><li> Б/У:
- [<a href="https://www.avito.ru/">Avito</a>]
- [<a href="https://irr.ru/">Из рук в руки</a>]
- [<a href="http://www.komok.com/">Комок</a>]
- [<a href="http://www.xforum.ru/">X-Forum</a>]
-
-
-</li><li> Soft:
- [<a href="http://www.softodrom.ru/">Softodrom</a>]
- [<a href="http://www.softportal.com/">Softportal</a>]
- [<a href="http://freesoft.ru/">Freesoft</a>]
- [<a href="https://technet.microsoft.com/ru-ru/sysinternals">Sysinternals</a>]
-
-
-</li><li> Hard:
- [<a href="http://cowonglobal.com/">Cowon</a>]
- [<a href="http://www.beholder.ru/">Beholder</a>]
- [<a href="http://www.pctuner.ru/">Tuner</a>]
- [<a href="http://pocketbook.ua/">Pocketbook</a>]
- [<a href="http://www.lbook.ua/">lBook</a>]
- [<a href="http://www.the-ebook.org/forum/index.php">The-eBook</a>]
-
-</li><li> СА:
- [<a href="http://www.linux.org/">Linux</a>
- (<a href="http://www.linux.org.ru/">rus</a>)]
- [<a href="http://www.freebsd.org/">FreeBSD</a>
- (<a href="http://www.freebsd.org.ru/">rus</a>)]
- [<a href="http://www.microsoft.com/">Windows</a>
- (<a href="http://www.microsoft.com/rus/">rus</a>)]
- [<a href="http://www.oszone.net/">OSzone</a>]
-
-</li><li> Программирование:
- [<a href="http://www.activestate.com/">ActiveState</a>]
- [<a href="http://www.techdays.ru/Main.aspx">TechDays</a>]
- [<a href="http://www.perl.org/">Perl</a>
- (<a href="http://www.perlmonks.org/">PerlMonks</a>,
- <a href="http://search.cpan.org/">CPAN</a>,
- <a href="http://www.catalystframework.org/">Catalyst</a>,
- <a href="http://www.template-toolkit.org/">TemplateToolkits</a>/<a href="http://www.template-toolkit.ru/">ru</a>)]
- [<a href="http://www.cplusplus.com/doc/tutorial/">C++</a>
- (<a href="http://qt.nokia.com/">QT</a>-<a href="http://developer.qt.nokia.com/doc/qt-4.8/">docs</a>,
- <a href="http://www.boost.org/">Boost</a>,
- <a href="http://opencv.willowgarage.com/wiki/">OpenCV</a>)]
- [<a href="http://myregexp.com/">RegExp</a>]
- [<a href="http://www.rsdn.ru/">RSDN</a>]
- [<a href="http://www.codeproject.com/">Codeproject</a>]
- [<a href="http://www.codeguru.com/">Codeguru</a>]
- [<a href="http://msdn.microsoft.com/">MSDN</a>]
-
-</li><li> CS:
- [<a href="http://compsciclub.ru/">CSClub</a>]
- [<a href="http://www.citforum.ru/">CIT Forum</a>]
- [<a href="http://www.cgi.ru/">Cgi.ru</a>]
- [<a href="http://forum.ru-board.com/">Ru-Board</a>]
-
-
-</li><li> Мобила:
- [<a href="http://www.sotovik.ru/">Сотовик</a>]
- [<a href="http://www.mobile-review.com/">Mobile-review</a>]
- [<a href="http://www.mts.ru/">МТС</a>]
- [<a href="http://www.beelinegsm.ru/">Би-Лайн</a>]
- [<a href="http://www.megafonmoscow.ru/">МегаФон-Москва</a>]
- [<a href="http://www.alttelecom.ru/">АльтТелеком</a>]
- [<a href="http://www.dixis.ru/">Dixis</a>]
-
-</li><li> Интернет Провайдер:
- [<a href="http://www.smile-net.ru/">Смайл</a>
- (<a href="https://user.smile-net.ru/newpa/?handler=Login">кабинет</a>)]
-
- [<a href="http://www.yota.ru/">Yota</a>
- (<a href="http://www.yota.ru/ru/coverage/russia/">карта</a>)]
-
- [<a href="http://www.stream.ru/">Стрим</a>]
- [<a href="http://www.streamclub.ru/">StreamClub</a>]
-
- [<a href="http://www.corbina.ru/">Корбина</a>
- (<a href="http://www.stat.corbina.ru/">Стат</a>)
- (<a href="http://homenet.corbina.net/index.php?&amp;&amp;CODE=00">Forum</a>)
- (<a href="http://films.corbina.ru/">Films</a>)]
- [<a href="http://www.akado.ru/">Акадо</a>]
-
- [<a href="http://www.domolink.ru/">Домолинк</a>
- (<a href="http://www.domolink.ru/ctc_privateroom_msk">кабинет МО</a>)]
-
-
-</li><li> Безопасность:
-
- [<a href="http://www.virustotal.com/ru/">Virustotal</a>]
- [<a href="http://www.bezpeka.com/ru">Bezpeka</a>]
- [<a href="http://www.firewallleaktester.ru/">FireWallLeakTester</a>
- (<a href="http://www.firewallleaktester.com/">eng</a>)]
- [<a href="http://www.jetico.com/">Jetico</a>]
- [<a href="http://www.avira.com/">Avira</a>]
-
-</li></ul>
-
-
-</td></tr><tr>
-<td>
-<h4>Работа и Отдых:</h4>
-<ul type="disc">
-
-<li> Юмор:
- [<a href="http://fishki.net/">Фишки.NET</a>
-(<a href="http://fishki.net/auto/">авто</a>)]
- [<a href="http://bash.org.ru/">BASH.org</a>]
- [<a href="http://govnokod.ru/">Говнокод.ру</a>
- (<a href="http://govnokod.ru/perl">Perl</a>)]
- [<a href="http://ithappens.ru/">IThappens</a>]
- [<a href="http://live4fun.ru/">Live4Fun</a>]
- [<a href="http://www.exler.ru/">Экслер</a>]
- [<a href="http://www.ostrie.ru/">Ostrie.RU</a>]
- [<a href="http://www.anekdotov.net/">Анекдотов.NET</a>]
- [<a href="http://anekdot.mail.ru/">Mail.RU.ы</a>]
- [<a href="http://www.udaff.com/">Udaff.com</a>]
- [<a href="http://www.yaplakal.com/">ЯПлакалъ</a>]
- [<a href="http://voffka.com/">Voffka</a>]
-
-
-</li><li> Видео:
- [<a href="https://www.youtube.com/">YouTube</a>]
- [<a href="https://rutube.ru/">RuTube</a>]
- [<a href="https://yandex.ru/portal/video">Яндекс</a>]
- [<a href="http://video.mail.ru">Mail.RU</a>]
- [<a href="http://www.ochevidets.ru/">Вы очевидец!</a>]
-
-</li><li>Наука:
- [<a href="http://www.elementy.ru/">Элементы БН</a>]
- [<a href="http://www.membrana.ru/">Мембрана</a>]
- [<a href="http://www.cryptography.ru/">Криптография</a>]
- [<a href="http://www.nature.ru/">Научная сеть</a>]
- [<a href="http://www.gramota.ru/">Русский язык</a>]
- [<a href="http://encycl.yandex.ru/">Яndex энциклопедия</a>]
-
-</li><li> Wiki: 
- [<a href="http://ru.wikipedia.org/wiki/">Википедия</a>
- (<a href="http://en.wikipedia.org/wiki/Main_Page">en</a>,
- <a href="http://wikipedia.org/">main</a>)]
- [<a href="http://ru.wikibooks.org/">Викиучебник</a>
- (<a href="http://en.wikibooks.org/">en</a>)]
- [<a href="http://ru.wiktionary.org/">Викисловарь</a>
- (<a href="http://en.wiktionary.org/">en</a>)]
- [<a href="http://ru.wikiquote.org/">Викицитатник</a>
- (<a href="http://en.wikiquote.org/">en</a>)]
- [<a href="http://ru.wikiversity.org/">Викиверситет</a>
- (<a href="http://en.wikiversity.org/">en</a>)]
- [<a href="http://ru.wikinews.org/">Викиновости</a>
- (<a href="http://en.wikinews.org/">en</a>)]
- [<a href="http://ru.wikisource.org/">Викитека</a>
- (<a href="http://en.wikisource.org/">en</a>)]
-
-</li><li> Книги:
- [<a href="http://www.infanata.com/">Infanata</a>]
- [<a href="http://lib.rus.ec/">Либрусек</a>]
- [<a href="http://www.ebdb.ru/">eBdb</a>]
- [<a href="http://www.findbook.ru/">findbook.ru</a>]
- [<a href="http://www.piter.com/">Питер</a>]
-
-</li><li> Кино:
- [<a href="http://www.tv.com/">TV.com</a>]
- [<a href="http://www.imdb.com/">IMDb</a>]
- [<a href="http://www.kinopoisk.ru/">КиноПоиск</a>]
- [<a href="http://www.kino-govno.com/">КГ</a>]
- [<a href="http://www.movie-mistakes.com/">Mistakes</a>]
- [<a href="http://www.afisha.ru/">Афиша</a>]
- [<a href="http://www.karofilm.ru/">КароФильм</a>
-(<a href="http://www.karofilm.ru/theatres/18">Шереметьевская</a>)]
-
-
-</li><li> Квартира:
-
- [<a href="https://pay.vseplatezhi.ru/mupirtsjkh/">Все платежи</a>]
- [<a href="http://irc-zhkh-podolsk.ru/">ИРЦ ЖКХ</a>]
-
- [<a href="http://cian.ru/">Cian</a>]
- [<a href="http://www.realsearch.ru/">RealSearch</a>]
- [<a href="http://realty.yandex.ru/">Yandex</a>]
- [<a href="http://realty.mail.ru/">Mail.RU</a>]
- [<a href="http://realty.rbc.ru/">RBC.RU</a>]
- [<a href="http://www.mian.ru/">Миан</a>]
- [<a href="http://www.miel.ru/">Миэль</a>]
- [<a href="http://www.incom.ru/">Инком</a>]
- [<a href="http://www.domostroy.ru/">Домострой</a>]
- [<a href="http://www.best-realty.ru/">Бест</a>]
- [<a href="http://www.pgi.su/">ПЖИ</a>]
- [<a href="http://www.pik.ru/">ПИК</a>]
- [<a href="http://www.su22.ru/">Су22</a>]
- [<a href="http://podolsk.ru/">Подольск</a> 
- (<a href="http://forum.podolsk.ru/">форум</a>,<a href="http://forum.podolsk.ru/viewtopic.php?f=73&amp;t=67571">5а</a>)]
-
-
-</li><li> Работа:
- [<a href="https://hh.ru/">HH</a>]
- [<a href="http://joblist.ru/">JobList</a>]
- [<a href="https://job.ru/">JOB.RU</a>]
- [<a href="https://www.superjob.ru/">SuperJob</a>]
- [<a href="https://rdw.ru/">РДВ</a>]
-
-</li><li> МГУ:
- [<a href="http://www.snto-msu.net/ubbthreads.php">Форум</a>]
-
-</li><li> ITG:
- [<a href="http://3itech.ru/">3i</a>]
- [<a href="http://dss-lab.ru/">DSS Lab</a>]
- [<a href="http://poisk-it.ru/">Поиск-ИТ</a>] 
- [<a href="http://itgrp.ru/">ITG</a> (
- <a href="https://owa.itgrp.ru/">Mail</a>)]
-
- [<a href="http://www.autonomy.com/">Autonomy</a>
- (<a href="https://customers.autonomy.com/support/secure/index.jsp">support</a>,
-<a href="https://downloads.autonomy.com/index.jsp">download</a>)]
-
- [<a href="http://www.garant.ru/calendar/buhpravo/">Производственный календарь</a>]
-
-
-</li></ul></td><td rowspan="2">
-
-<h4>Спорт</h4>
-
-<ul type="disc">
-
-<li> Магазины: 
- [<a href="http://sportmaster.ru/">Спортмастер</a>]
- [<a href="http://www.kant.ru/">Кант</a>]
-
-</li><li> Фитнес: 
- [<a href="http://www.ironfitness.ru/">Iron Fitness</a>]
- [<a href="http://www.ideal-fitness.ru/">Идеал</a>]
- [<a href="http://www.fitness.ru/">Планета фитнес</a>]
- [<a href="http://www.ifitnes.ru/">Империя фитнеса</a>]
- [<a href="http://www.worldclass.ru/">World class</a>]
-
-</li><br>
-
-<b>Футбол:</b>
-
-<li> Календарь ЧР:
- [<a href="http://football.kulichki.net/ruschamp/kalendar.htm">ФНК</a>]
- [<a href="http://www.rfpl.org/calendar">РФПЛ</a>]
- Таблица:
- [<a href="http://results.marathonbet.com/sportstat.php?nr1=5&amp;razd=33#">Марафон</a>]
- [<a href="http://football.kulichki.net/ruschamp/index.htm">ФНК</a>]
-
-</li><li> РОТОР 
- [<a href="http://www.rotor-fc.com/">rotor-fc.com</a>
- (<a href="http://www.rotor-fc.com/servisy/gostevaya-kniga/">guest</a>)]]
- [<a href="http://www.rotor-volgograd.com/">com</a>
- (<a href="http://www.rotor-volgograd.com/gb/">guest</a>)]
- [<a href="http://www.rotor-volgograd.ru/">ru</a>
- (<a href="http://www.rotor-volgograd.ru/guest/">guest</a>),
- (<a href="http://www.rotor-volgograd.ru/forum/">forum</a>) ]
-
-</li><li> Премьер Лига: 
- [<a href="http://www.amkar.ru/">Амкар</a>
- (<a href="http://www.amkar.ru/gb/gbook.asp">g</a>)]
-
- [<a href="http://www.fcdynamo.ru/">Динамо</a>
- (<a href="http://www.fcdynamo.ru/php/content.php?group=guest">g</a>)]
-
-
- [<a href="http://fc-zenit.ru/">Зенит</a>
- (<a href="http://www.fc-zenit.ru/teams/zenit/calendar/">матчи</a>,
- <a href="http://forum.fc-zenit.ru/">forum</a>)]
-
- [<a href="http://www.kc-camapa.ru/">Кр.Советов</a>
- (<a href="http://www.kc-camapa.ru/cgi-bin/gbp.cgi">g</a>)]
- [<a href="http://www.fclm.ru/">Локомотив</a>
- (<a href="http://www.fclm.ru/forum/">f</a>)]
-
- [<a href="http://www.luch-vlad.ru/">Луч-Энергия</a>
- (<a href="http://www.luch-vlad.ru/modules.php?name=Book">g</a>)]
-
- [<a href="http://www.fcmoscow.ru/ru/">ФК Москва</a>
- (<a href="http://forum.fcmoscow.ru/">f</a>)]
-
- [<a href="http://www.fc-rostov.ru/">Ростов</a>
- (<a href="http://www.fc-rostov.ru/discuss/forum/">f</a>)]
-
- 
-[<a href="http://www.rubin-kazan.ru/">Рубин</a>
- (<a href="http://www.rubin-kazan.ru/?page=20">g</a>)]
-
-[<a href="http://www.saturn-fc.ru/">Сатурн</a>
- (<a href="http://www.saturn-fc.ru/cgi-bin/gb.pl">g</a>)]
-
-
-[<a href="http://www.spartak-nalchik.org/">Сп.Нальчик</a>
- (<a href="http://www.spartak-nalchik.org/component/option,com_akobook/Itemid,48/">g</a>)]
-[<a href="http://rus.spartak.com/">Спартак</a>
- (<a href="http://spartak.msk.ru/menu.dll?a=news">msk</a>,
- <a href="http://spartak.msk.ru/gb.sema">ВВ</a>)]
-
-[<a href="http://www.football.tomsk.ru/">Томь</a>
- (<a href="http://www.football.tomsk.ru/gb/">g</a>,
- <a href="http://www.football.tomsk.ru/gb/">f</a>)]
- [<a href="http://www.torpedo.ru/archive/index.html">Торпедо</a>
- (<a href="http://torpedo.ru/tmpl/gb.shtml">g</a>)]
- [<a href="http://www.cska-football.ru/index.pl?l=ru">ЦСКА</a>
- (<a href="http://www.cska-football.ru/gbook/">g</a>,
- <a href="http://www.peski.ru/">Пески</a>,
- <a href="http://www.peski.ru/gbook/index.php3">Пески</a>)]
- [<a href="http://www.shinnik.yar.ru/">Шинник</a>
- (<a href="http://www.shinnik.yar.ru/index.php?module=Guestbook2">g</a>)]
-
-</li><li> Англия: 
- [<a href="http://www.arsenal.com/home">Arsenal</a>
- (<a href="http://www.arsenal.com/the-match/fixtures-reports">матчи</a>)]
-
-</li><li> Организации:
- [<a href="https://premierliga.ru/">РПЛ</a>]
- [<a href="http://www.1fnl.ru/">ФНЛ</a>]
- [<a href="https://www.rfs.ru/">РФС</a>]
- [<a href="https://www.fifa.com/">FIFA</a>]
- [<a href="https://www.uefa.com/">UEFA</a>]
-
-</li><li> Инф. сайты: 
- [<a href="http://football.kulichki.net/">ФНК</a>]
- [<a href="http://onedivision.ru/">onedivision.ru</a>]
- [<a href="http://www.2liga.ru/">2liga</a>]
-</li><br>
-
-<b>Спортивные сайты:</b>
-
-<li> Online: 
- [<a href="http://www.liveresult.ru/index.php?cat=ru">LiveResult</a>]
- [<a href="http://www.sportonline.ru/football/russia.htm">SportOnline</a>]
- [<a href="http://www4.marathonbet.com/liveresults.phtml?r%5B%5D=%D4%F3%F2%E1%EE%EB">Марафон</a>]
- [<a href="http://football.kulichki.net/trans/index.htm">ФНК</a>]
- [<a href="http://live.sport-express.ru/">СЭ</a>]
- [<a href="http://www.2liga.ru/index.php?categoryid=28">2лига</a>]
-
-</li><li> Новости: 
- [<a href="https://www.championat.com/">Чемпионат.com</a>
- (<a href="https://www.championat.com/football/">Футбол</a>,
- <a href="https://www.championat.com/tags/5-fk-zenit/">Зенит</a>,
- <a href="https://www.championat.com/tags/1069-rotor/">Ротор</a>)]
- [<a href="http://www.sport-express.ru/">"СЭ"</a>
- (<a href="http://www.sport-express.ru/np/">Г</a>)]
- [<a href="http://www.sovsport.ru/">"СC"</a>]
- [<a href="https://www.sports.ru/">Спорт сегодня</a>]
- [<a href="https://www.sportsdaily.ru/">Спорт ДЗД</a>]
- [<a href="https://www.livesport.ru/">Livesport</a>]
- [<a href="https://www.gazeta.ru/sport/">Газета.ru</a>]
- [<a href="https://sportrbc.ru/">RBC</a>]
-
-</li><li> Бокс:
- [<a href="http://boxrec.com/">BoxRec</a>]
- [<a href="http://allboxing.ru/">AllBoxing</a>]
- [<a href="http://www.boxing.ru/">Boxing</a>
- (<a href="http://www.boxing.ru/forum/">forum</a>)]
- [<a href="http://www.boxingscene.com/">BoxingScene</a>]
- [<a href="http://www.boxnews.com.ua/">BoxNews</a>]
-
-</li><li> Прямая трансляция:
- [<a href="http://livesport.ws/">LiveSport.ws</a>]
- [<a href="http://livefootball.ws/">LiveFootball.ws</a>]
- [<a href="http://livetv.ru">Live TV</a>]
- [<a href="https://ntvplus.tv/sport/">НТВ+</a>]
-
-</li><br>
-
-
-</ul></td></tr><tr>
-<td>
-<h4>Телевидение&amp;Радио:</h4>
-<ul type="disc">
-<li> TV-программа: 
- [<a href="http://tv.yandex.ru/">Яndex</a>]
- [<a href="http://tv.rambler.ru/">Rambler</a>]
- [<a href="http://tv.kulichki.net/">Кулички</a>]
-</li><li> Радио: 
- [<a href="http://tunein.com/">TuneIn</a>]
- [<a href="http://www.radiomayak.ru/">Маяк</a>
- (<a href="http://audio.rambler.ru/player.html?id=1021">rambler</a>,
- <a href="http://player.rutv.ru/index/iframe/cast_id/81/">видео</a>,
- <a href="http://www.stillavin.pro/">Стиллавин</a>,
- <a href="http://producer.stillavin.pro/">НП</a>)]
- [<a href="http://www.echo.msk.ru/">Эхо Москвы</a>
- (<a href="http://audio.rambler.ru/player.html?id=1002">rambler</a>)]
- [<a href="http://www.radiozenit.ru/">Зенит</a>
- (<a href="http://www.radiozenit.ru/online/player.html">online</a>,
- <a href="http://audio.rambler.ru/player.html?id=514564">rambler</a>,
- <a href="http://zenitbol.ru/index/radio_zenit/0-13">ZenitBol</a>)]
- [<a href="http://www.nashe.ru/">НАШЕ</a>
- (<a href="http://audio.rambler.ru/player.html?id=662226">rambler</a>,
- <a href="http://www.chart.ru/">чарт</a>)]
- [<a href="http://www.maximum.ru/">Maximum</a>]
-</li><li> ТВ: 
- [<a href="https://www.1tv.ru/">Первый канал</a>
- (<a href="https://www.1tv.ru/schedule/week">пр</a>)] 
- [<a href="https://russia.tv/">Россия</a>
- (<a href="https://russia.tv/tvp/">пр</a>)]
- [<a href="https://news.sportbox.ru/">Sportbox.ru</a>
- (<a href="https://news.sportbox.ru/tv">пр</a>)]
- [<a href="http://www.ntv.ru/">НТВ</a>
- (<a href="http://www.ntv.ru/programma/">пр</a>)] 
- [<a href="http://www.ntvplus.ru/">НТВ+</a>
- (<a href="http://www.ntvplus.ru/tv/">пр</a>)] 
- [<a href="http://tnt-online.ru/">ТНТ</a>]
-</li><li> Прямая трансляция:
- [<a href="https://itv.rt.ru/">Ростелеком</a>]
- [<a href="http://wwitv.com/portal.htm">wwiTV</a>
- (<a href="http://wwitv.com/television/174.htm">rus</a>)]
- [<a href="http://www.webtelek.com/">WebTelek</a>]
-</li></ul>
-
-
-
-</td></tr></tbody></table>
-</body><div></div></html>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="#top">🔗 <span>Links</span></a>
+    <div class="search">
+      <input id="q" type="search" placeholder="Поиск по ссылкам…  (нажмите / )" autocomplete="off">
+    </div>
+    <button id="theme" class="icon-btn" title="Сменить тему">🌙</button>
+  </div>
+  <div class="chips" id="chips"></div>
+</header>
+
+<main id="app"></main>
+
+<footer class="foot">
+  Найдено ссылок: <b id="found">0</b> · Коллекция собрана и обновлена в 2026 году
+</footer>
+
+<script>
+/* ============================================================
+   ДАННЫЕ
+   ============================================================ */
+const DATA = [
+/* ---------------- 1. ИНТЕРНЕТ И СМИ ---------------- */
+{
+  id:"media", icon:"🌐", title:"Интернет и СМИ",
+  groups:[
+    { title:"Поиск", links:[
+      ["Яндекс","https://yandex.ru/"],
+      ["Google","https://www.google.com/"],
+      ["Bing","https://www.bing.com/"],
+      ["DuckDuckGo","https://duckduckgo.com/"],
+      ["Yahoo","https://www.yahoo.com/"],
+      ["Rambler","https://www.rambler.ru/"],
+      ["FileSearch (ftp)","https://filesearch.ru/"]
+    ]},
+    { title:"Почта", links:[
+      ["Mail.ru","https://mail.ru/"],
+      ["Gmail","https://mail.google.com/"],
+      ["Яндекс.Почта","https://mail.yandex.ru/"],
+      ["Rambler","https://mail.rambler.ru/"],
+      ["QIP","https://mail.qip.ru/"]
+    ]},
+    { title:"Новости", links:[
+      ["Газета.ru","https://www.gazeta.ru/"],
+      ["NEWSru.com","https://www.newsru.com/"],
+      ["РИА Новости","https://ria.ru/"],
+      ["Meduza","https://meduza.io/"],
+      ["RNS","https://rns.online/"],
+      ["L!FE","https://life.ru/"],
+      ["РБК","https://www.rbc.ru/"],
+      ["Lenta.ru","https://lenta.ru/"],
+      ["Утро.ru","https://utro.ru/"],
+      ["Дни.ру","https://dni.ru/"],
+      ["Regnum","https://regnum.ru/"]
+    ]},
+    { title:"Украина", links:[
+      ["Шарий.NET","https://sharij.net/"],
+      ["Шарий — Twitter","https://twitter.com/anatoliisharii/"],
+      ["Шарий — Facebook","https://www.facebook.com/anatolijsharij"],
+      ["Страна.UA","https://strana.ua/"]
+    ]},
+    { title:"Карты и транспорт", links:[
+      ["Яндекс.Карты","https://yandex.ru/maps/"],
+      ["Яндекс.Пробки","https://yandex.ru/maps/213/moscow/"],
+      ["Яндекс.Метро","https://yandex.ru/metro/moscow"],
+      ["Google Maps","https://www.google.com/maps"],
+      ["OpenStreetMap","https://www.openstreetmap.org/"],
+      ["Вести-пробки","http://probki.vesti.ru/"],
+      ["Автобусы Москвы","http://msk.rusavtobus.ru/"],
+      ["Метро","http://www.metro.ru/"]
+    ]},
+    { title:"Перевод", links:[
+      ["Яндекс Переводчик","https://translate.yandex.ru/"],
+      ["Google Translate","https://translate.google.com/"],
+      ["DeepL","https://www.deepl.com/translator"],
+      ["PROMT","https://www.translate.ru/"]
+    ]},
+    { title:"Разное", links:[
+      ["2IP","https://2ip.ru/"],
+      ["Яндекс.Интернет","https://yandex.ru/internet/"],
+      ["Госуслуги","https://www.gosuslugi.ru/"],
+      ["Яндекс.Время","https://yandex.ru/time/"],
+      ["Туту.ру","https://www.tutu.ru/"],
+      ["Хлебопечка (рецепты)","http://hlebopechka.ru/"],
+      ["Почта России — трекинг","https://www.pochta.ru/tracking"],
+      ["Hongkong Post","https://www.hongkongpost.hk/"]
+    ]},
+    { title:"Автомобили", links:[
+      ["Exist","https://www.exist.ru/"],
+      ["KIA","https://www.kia.ru/"],
+      ["Ceed Club","http://ceedclub.ru/"],
+      ["Kia Ceed Info","http://www.kia-ceed.info/"],
+      ["Hyundai","https://www.hyundai.ru/"],
+      ["Синие ведёрки","https://ru-vederko.livejournal.com/"],
+      ["ФАР","http://www.autofed.ru/"],
+      ["ГАИ.РУ","https://www.gai.ru/"],
+      ["Auto.ru","https://auto.ru/"],
+      ["Autoreview","https://autoreview.ru/"],
+      ["Autonews","https://www.autonews.ru/"],
+      ["AutoWeek","http://autoweek.ru/"],
+      ["Drive.ru","https://www.drive.ru/"],
+      ["medved01","https://medved01.livejournal.com/"],
+      ["STOP! Не гони","http://www.stopnegoni.ru/"],
+      ["DTP-Video","http://dtp-video.ru/"],
+      ["ПрессаТВ / ДТП","http://pressa.tv/dtp/"],
+      ["RuCrash","http://www.rucrash.com/"],
+      ["RusDTP","http://rusdtp.ru/"]
+    ]},
+    { title:"Расписания", links:[
+      ["Яндекс.Расписания","https://rasp.yandex.ru/"],
+      ["Подольск → 52 км","http://rasp.yandex.ru/search/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&fromId=c10747&toName=52+%D0%BA%D0%BC&toId=s9745615&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"],
+      ["52 км → Подольск","http://rasp.yandex.ru/search/?fromName=52+%D0%BA%D0%BC&fromId=s9745615&toName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&toId=c10747&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"],
+      ["Подольск → Царицыно","http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&fromId=c10747&toName=%D0%A6%D0%B0%D1%80%D0%B8%D1%86%D1%8B%D0%BD%D0%BE&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"],
+      ["Подольск → Кр. Строитель","http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&fromId=c10747&toName=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9+%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C&toId=s9601943&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"],
+      ["Подольск → Станколит","http://rasp.yandex.ru/search/suburban/?fromName=%D0%9F%D0%BE%D0%B4%D0%BE%D0%BB%D1%8C%D1%81%D0%BA&fromId=c10747&toName=%D0%A1%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%BB%D0%B8%D1%82&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"],
+      ["Автобус 435 → Южная","http://rasp.yandex.ru/search/?toName=%D0%BC.+%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F&fromName=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8&toId=s9744864&fromId=s9741329"],
+      ["Автобус 435 → Подольск","http://rasp.yandex.ru/search/?fromName=%D0%BC.+%D0%AE%D0%B6%D0%BD%D0%B0%D1%8F&fromId=s9744864&toName=%D0%AE%D0%B6%D0%BD%D1%8B%D0%B9&toId=s9741329&when=%D0%BD%D0%B0+%D0%B2%D1%81%D0%B5+%D0%B4%D0%BD%D0%B8"]
+    ]},
+    { title:"Финансы", links:[
+      ["Промсвязьбанк","https://www.psbank.ru/"],
+      ["ПСБ Онлайн","https://ib.psbank.ru/"],
+      ["Сбербанк","https://www.sberbank.ru/ru/person"],
+      ["Сбербанк Онлайн","https://online.sberbank.ru/"],
+      ["Райффайзен","https://www.raiffeisen.ru/"],
+      ["Contact","https://www.contact-sys.com/"],
+      ["Курсы валют","https://www.profinance.ru/currency_usd.asp"],
+      ["EUR/RUB","https://www.profinance.ru/currency_usd.asp?s=EURRUB"],
+      ["Курсы ЦБ РФ","https://www.cbr.ru/currency_base/daily/"]
+    ]},
+    { title:"Погода", links:[
+      ["GisMeteo","https://www.gismeteo.ru/"],
+      ["GisMeteo — Москва","https://www.gismeteo.ru/weather-moscow-4368/"],
+      ["Яндекс.Погода","https://yandex.ru/pogoda/moscow/"],
+      ["Яндекс — Волжский","https://yandex.ru/pogoda/volzhskiy/"],
+      ["Яндекс — Киреевск","https://yandex.ru/pogoda/kireevsk/"],
+      ["Яндекс — СПб","https://yandex.ru/pogoda/saint-petersburg/"],
+      ["Rambler","https://weather.rambler.ru/"],
+      ["МетеоТВ","http://www.meteo-tv.ru/"]
+    ]},
+    { title:"P2P и торренты", links:[
+      ["RuTracker","https://rutracker.org/forum/"],
+      ["RGFootball","http://rgfootball.net/"],
+      ["NNM-Club","https://nnmclub.to/"],
+      ["Riper.AM","http://riperam.org/"],
+      ["Pirat.ca","http://pirat.ca/forum/index.php"],
+      ["LostFilm","https://www.lostfilm.tv/"],
+      ["NewStudio","https://newstudio.tv/"],
+      ["The Pirate Bay","https://thepiratebay.org/"],
+      ["RDA / КВН","http://rusdivx.net/"],
+      ["Кинозал","https://kinozal.tv/"]
+    ]}
+  ]
+},
+
+/* ---------------- 2. ИТ ---------------- */
+{
+  id:"it", icon:"💻", title:"Информационные технологии",
+  groups:[
+    { title:"Инструменты", links:[
+      ["JSON Editor Online","https://jsoneditoronline.org/"],
+      ["JS Beautifier","https://beautifier.io/"],
+      ["FreeFormatter","https://www.freeformatter.com/"],
+      ["RegEx101","https://regex101.com/"],
+      ["MyRegExp","http://myregexp.com/"]
+    ]},
+    { title:"Работа", links:[
+      ["OWA (ITG)","https://owa.itgrp.ru/owa/"],
+      ["TouchPoint","https://app.v15.touchpoint-analytics.ru/login"],
+      ["TouchPoint QA","https://app.v15.touchpoint-analytics.xyz/login/"],
+      ["3i Analytics","https://3i-analytics.ru/"],
+      ["Data Plexus","https://data-plexus.ru/"],
+      ["Git (локальный)","http://10.250.83.235/users/sign_in"],
+      ["Redmine (локальный)","http://10.250.83.230/redmine/"],
+      ["Swagger API","http://10.250.83.230/swagger_apis/"]
+    ]},
+    { title:"Новости и обзоры", links:[
+      ["3DNews","https://3dnews.ru/"],
+      ["iXBT","https://www.ixbt.com/"],
+      ["iXBT Forum","http://forum.ixbt.com/"],
+      ["Computerra","https://www.computerra.ru/"],
+      ["Ferra","https://www.ferra.ru/"],
+      ["HWP","https://www.hwp.ru/"],
+      ["Mediatory","http://www.mediatory.ru/"],
+      ["Overclockers","https://overclockers.ru/"],
+      ["THG","https://www.thg.ru/"],
+      ["CNews","https://www.cnews.ru/"]
+    ]},
+    { title:"Хабр", links:[
+      ["Хабрахабр","https://habr.com/"],
+      ["Mobile dev","https://habr.com/ru/hubs/mobile_dev/"],
+      ["Perl","https://habr.com/ru/hubs/perl/"],
+      ["C++","https://habr.com/ru/hubs/cpp/"],
+      ["Алгоритмы","https://habr.com/ru/hubs/algorithms/"],
+      ["Безопасность","https://habr.com/ru/hubs/infosecurity/"],
+      ["Научно-популярное","https://habr.com/ru/hubs/popular_science/"],
+      ["Сисадмин","https://habr.com/ru/hubs/sys_admin/"]
+    ]},
+    { title:"Мобильные", links:[
+      ["4PDA","https://4pda.to/"],
+      ["4PDA Forum","https://4pda.to/forum/"],
+      ["XDA Developers","https://forum.xda-developers.com/"],
+      ["HPC.ru","https://www.hpc.ru/"]
+    ]},
+    { title:"Магазины техники", links:[
+      ["Яндекс.Маркет","https://market.yandex.ru/"],
+      ["Price.ru","http://www.price.ru/"],
+      ["Pleer.ru","https://www.pleer.ru/"],
+      ["Джаст","https://just.ru/"],
+      ["Юлмарт","https://www.ulmart.ru/"],
+      ["F-Center","https://www.fcenter.ru/"],
+      ["NIX","https://www.nix.ru/"],
+      ["Oldi","https://www.oldi.ru/"],
+      ["Ситилинк","https://www.citilink.ru/"],
+      ["Flash","https://www.flashcom.ru/"],
+      ["KNS","https://www.kns.ru/"],
+      ["М.Видео","https://www.mvideo.ru/"],
+      ["Эльдорадо","https://www.eldorado.ru/"],
+      ["Технопарк","https://www.technopark.ru/"]
+    ]},
+    { title:"Б/У и объявления", links:[
+      ["Avito","https://www.avito.ru/"],
+      ["Юла","https://youla.ru/"],
+      ["Из рук в руки","https://irr.ru/"],
+      ["X-Forum","http://www.xforum.ru/"]
+    ]},
+    { title:"Софт", links:[
+      ["Softodrom","https://www.softodrom.ru/"],
+      ["Softportal","https://www.softportal.com/"],
+      ["Freesoft","http://freesoft.ru/"],
+      ["Sysinternals","https://learn.microsoft.com/ru-ru/sysinternals/"]
+    ]},
+    { title:"Железо", links:[
+      ["Cowon","http://cowonglobal.com/"],
+      ["Beholder","https://www.beholder.ru/"],
+      ["PCTuner","http://www.pctuner.ru/"],
+      ["PocketBook","https://pocketbook.ru/"],
+      ["The-eBook","https://www.the-ebook.org/"]
+    ]},
+    { title:"Системы", links:[
+      ["Linux","https://www.linux.org/"],
+      ["Linux.org.ru","https://www.linux.org.ru/"],
+      ["FreeBSD","https://www.freebsd.org/"],
+      ["FreeBSD рус","https://www.freebsd.org.ru/"],
+      ["Windows","https://www.microsoft.com/"],
+      ["OSzone","https://www.oszone.net/"]
+    ]},
+    { title:"Программирование", links:[
+      ["ActiveState","https://www.activestate.com/"],
+      ["TechDays","https://www.techdays.ru/"],
+      ["Perl","https://www.perl.org/"],
+      ["PerlMonks","https://www.perlmonks.org/"],
+      ["CPAN / MetaCPAN","https://metacpan.org/"],
+      ["Catalyst","https://www.catalystframework.org/"],
+      ["Template Toolkit","https://template-toolkit.org/"],
+      ["C++","https://cplusplus.com/doc/tutorial/"],
+      ["Qt","https://www.qt.io/"],
+      ["Qt Docs","https://doc.qt.io/"],
+      ["Boost","https://www.boost.org/"],
+      ["OpenCV","https://opencv.org/"],
+      ["RSDN","https://www.rsdn.org/"],
+      ["CodeProject","https://www.codeproject.com/"],
+      ["CodeGuru","https://www.codeguru.com/"],
+      ["Microsoft Learn / MSDN","https://learn.microsoft.com/"]
+    ]},
+    { title:"CS и форумы", links:[
+      ["CSClub","https://compsciclub.ru/"],
+      ["CIT Forum","https://www.citforum.ru/"],
+      ["Cgi.ru","http://www.cgi.ru/"],
+      ["Ru-Board","https://forum.ru-board.com/"]
+    ]},
+    { title:"Мобильная связь", links:[
+      ["Сотовик","https://www.sotovik.ru/"],
+      ["Mobile-Review","https://www.mobile-review.com/"],
+      ["МТС","https://www.mts.ru/"],
+      ["Билайн","https://www.beeline.ru/"],
+      ["МегаФон","https://www.megafon.ru/"],
+      ["Tele2","https://msk.tele2.ru/"]
+    ]},
+    { title:"Провайдеры", links:[
+      ["Смайл","http://www.smile-net.ru/"],
+      ["Смайл — кабинет","https://user.smile-net.ru/newpa/?handler=Login"],
+      ["Yota","https://www.yota.ru/"],
+      ["Yota — покрытие","https://www.yota.ru/coverage/"],
+      ["Ростелеком","https://www.rt.ru/"],
+      ["Акадо","https://www.akado.ru/"]
+    ]},
+    { title:"Безопасность", links:[
+      ["VirusTotal","https://www.virustotal.com/"],
+      ["Bezpeka","http://www.bezpeka.com/ru"],
+      ["Firewall Leak Tester","http://www.firewallleaktester.com/"],
+      ["Jetico","https://www.jetico.com/"],
+      ["Avira","https://www.avira.com/"],
+      ["Kaspersky","https://www.kaspersky.ru/"]
+    ]}
+  ]
+},
+
+/* ---------------- 3. РАБОТА И ОТДЫХ ---------------- */
+{
+  id:"fun", icon:"🎈", title:"Работа и отдых",
+  groups:[
+    { title:"Юмор", links:[
+      ["Фишки.NET","https://fishki.net/"],
+      ["Фишки — авто","https://fishki.net/auto/"],
+      ["Bash.org","http://bash.org.ru/"],
+      ["Говнокод.ру","https://govnokod.ru/"],
+      ["IT Happens","https://ithappens.me/"],
+      ["Live4Fun","https://live4fun.ru/"],
+      ["Экслер","https://exler.ru/"],
+      ["Ostrie.ru","http://www.ostrie.ru/"],
+      ["Анекдотов.net","http://www.anekdotov.net/"],
+      ["Анекдоты Mail.ru","https://anekdot.mail.ru/"],
+      ["Udaff.com","http://www.udaff.com/"],
+      ["ЯПлакалъ","https://www.yaplakal.com/"],
+      ["Voffka","http://voffka.com/"]
+    ]},
+    { title:"Видео", links:[
+      ["YouTube","https://www.youtube.com/"],
+      ["RuTube","https://rutube.ru/"],
+      ["Яндекс.Видео","https://yandex.ru/video/"],
+      ["VK Видео","https://vkvideo.ru/"],
+      ["Вы очевидец!","http://www.ochevidets.ru/"]
+    ]},
+    { title:"Наука", links:[
+      ["Элементы","https://elementy.ru/"],
+      ["Мембрана","https://www.membrana.ru/"],
+      ["Криптография","https://www.cryptography.ru/"],
+      ["Научная сеть","http://www.nature.ru/"],
+      ["Грамота.ру","http://www.gramota.ru/"],
+      ["Яндекс.Энциклопедии","https://yandex.ru/encyclopedia/"]
+    ]},
+    { title:"Вики", links:[
+      ["Википедия","https://ru.wikipedia.org/"],
+      ["Wikipedia (en)","https://en.wikipedia.org/"],
+      ["Викиучебник","https://ru.wikibooks.org/"],
+      ["Викисловарь","https://ru.wiktionary.org/"],
+      ["Викицитатник","https://ru.wikiquote.org/"],
+      ["Викиверситет","https://ru.wikiversity.org/"],
+      ["Викиновости","https://ru.wikinews.org/"],
+      ["Викитека","https://ru.wikisource.org/"]
+    ]},
+    { title:"Книги", links:[
+      ["Infanata","http://www.infanata.com/"],
+      ["Либрусек","https://lib.rus.ec/"],
+      ["Флибуста","https://flibusta.is/"],
+      ["eBdb","http://www.ebdb.ru/"],
+      ["FindBook","http://www.findbook.ru/"],
+      ["Питер","https://www.piter.com/"]
+    ]},
+    { title:"Кино", links:[
+      ["IMDb","https://www.imdb.com/"],
+      ["Кинопоиск","https://www.kinopoisk.ru/"],
+      ["TV.com","http://www.tv.com/"],
+      ["КГ","https://kino-govno.com/"],
+      ["Movie Mistakes","https://www.moviemistakes.com/"],
+      ["Афиша","https://www.afisha.ru/"],
+      ["КароФильм","https://www.karofilm.ru/"]
+    ]},
+    { title:"Квартира и ЖКХ", links:[
+      ["Все платежи","https://pay.vseplatezhi.ru/"],
+      ["ИРЦ ЖКХ Подольск","http://irc-zhkh-podolsk.ru/"],
+      ["Циан","https://cian.ru/"],
+      ["Яндекс.Недвижимость","https://realty.yandex.ru/"],
+      ["Домклик","https://domclick.ru/"],
+      ["RealSearch","http://www.realsearch.ru/"],
+      ["Миан","https://www.mian.ru/"],
+      ["Миэль","https://www.miel.ru/"],
+      ["Инком","https://www.incom.ru/"],
+      ["ПИК","https://www.pik.ru/"],
+      ["Подольск","https://podolsk.ru/"],
+      ["Форум Подольска","http://forum.podolsk.ru/"]
+    ]},
+    { title:"Работа", links:[
+      ["hh.ru","https://hh.ru/"],
+      ["JobList","http://joblist.ru/"],
+      ["JOB.RU","https://job.ru/"],
+      ["SuperJob","https://www.superjob.ru/"],
+      ["РДВ","https://rdw.ru/"]
+    ]},
+    { title:"Учёба и ITG", links:[
+      ["МГУ — форум","http://www.snto-msu.net/"],
+      ["3i Tech","http://3itech.ru/"],
+      ["DSS Lab","http://dss-lab.ru/"],
+      ["Поиск-ИТ","http://poisk-it.ru/"],
+      ["ITG","http://itgrp.ru/"],
+      ["ITG — почта","https://owa.itgrp.ru/"],
+      ["Autonomy / OpenText","https://www.autonomy.com/"],
+      ["Производственный календарь","https://www.garant.ru/calendar/buhpravo/"]
+    ]}
+  ]
+},
+
+/* ---------------- 4. СПОРТ ---------------- */
+{
+  id:"sport", icon:"⚽", title:"Спорт",
+  groups:[
+    { title:"Магазины", links:[
+      ["Спортмастер","https://www.sportmaster.ru/"],
+      ["Кант","https://www.kant.ru/"],
+      ["Decathlon","https://www.decathlon.ru/"]
+    ]},
+    { title:"Фитнес", links:[
+      ["Iron Fitness","http://www.ironfitness.ru/"],
+      ["Идеал","http://www.ideal-fitness.ru/"],
+      ["Планета Фитнес","https://www.fitness.ru/"],
+      ["Империя фитнеса","http://www.ifitnes.ru/"],
+      ["World Class","https://www.worldclass.ru/"]
+    ]},
+    { title:"Футбол: календарь и таблицы", links:[
+      ["РПЛ — календарь","https://premierliga.ru/calendar/"],
+      ["РПЛ — таблица","https://premierliga.ru/tournament-table/"],
+      ["ФНК — календарь","http://football.kulichki.net/ruschamp/kalendar.htm"],
+      ["ФНК — таблица","http://football.kulichki.net/ruschamp/index.htm"]
+    ]},
+    { title:"Клубы", links:[
+      ["Ротор","http://www.rotor-fc.com/"],
+      ["Ротор (com)","http://www.rotor-volgograd.com/"],
+      ["Ротор (ru)","http://www.rotor-volgograd.ru/"],
+      ["Динамо","https://fcdm.ru/"],
+      ["Зенит","https://fc-zenit.ru/"],
+      ["Локомотив","https://www.fclm.ru/"],
+      ["Спартак","https://spartak.com/"],
+      ["ЦСКА","https://www.cska-football.ru/"],
+      ["Ростов","https://www.fc-rostov.ru/"],
+      ["Рубин","https://www.rubin-kazan.ru/"],
+      ["Крылья Советов","https://www.kc-camapa.ru/"],
+      ["Торпедо","https://www.torpedo.ru/"],
+      ["Arsenal (Англия)","https://www.arsenal.com/"]
+    ]},
+    { title:"Организации", links:[
+      ["РПЛ","https://premierliga.ru/"],
+      ["ФНЛ","https://www.1fnl.ru/"],
+      ["РФС","https://www.rfs.ru/"],
+      ["FIFA","https://www.fifa.com/"],
+      ["UEFA","https://www.uefa.com/"]
+    ]},
+    { title:"Онлайн-результаты", links:[
+      ["LiveResult","https://www.liveresult.ru/"],
+      ["Спорт-Экспресс Live","https://live.sport-express.ru/"],
+      ["ФНК — трансферы","http://football.kulichki.net/trans/index.htm"],
+      ["2liga","http://www.2liga.ru/"]
+    ]},
+    { title:"Новости спорта", links:[
+      ["Чемпионат.com","https://www.championat.com/"],
+      ["Чемпионат — футбол","https://www.championat.com/football/"],
+      ["Спорт-Экспресс","https://www.sport-express.ru/"],
+      ["Советский спорт","https://www.sovsport.ru/"],
+      ["Sports.ru","https://www.sports.ru/"],
+      ["Спорт ДЗД","https://www.sportsdaily.ru/"],
+      ["LiveSport","https://www.livesport.ru/"],
+      ["Газета.ru — спорт","https://www.gazeta.ru/sport/"],
+      ["Sport RBC","https://sportrbc.ru/"]
+    ]},
+    { title:"Бокс", links:[
+      ["BoxRec","https://boxrec.com/"],
+      ["AllBoxing","https://allboxing.ru/"],
+      ["Boxing.ru","http://www.boxing.ru/"],
+      ["BoxingScene","https://www.boxingscene.com/"],
+      ["BoxNews","http://www.boxnews.com.ua/"]
+    ]},
+    { title:"Прямые трансляции", links:[
+      ["LiveSport.ws","http://livesport.ws/"],
+      ["LiveFootball.ws","http://livefootball.ws/"],
+      ["LiveTV","https://livetv.sx/"],
+      ["НТВ+ Спорт","https://ntvplus.tv/sport/"]
+    ]}
+  ]
+},
+
+/* ---------------- 5. ТВ И РАДИО ---------------- */
+{
+  id:"tv", icon:"📺", title:"Телевидение и радио",
+  groups:[
+    { title:"TV-программа", links:[
+      ["Яндекс.Телепрограмма","https://tv.yandex.ru/"],
+      ["Rambler","http://tv.rambler.ru/"],
+      ["Кулички","http://tv.kulichki.net/"]
+    ]},
+    { title:"Радио", links:[
+      ["TuneIn","https://tunein.com/"],
+      ["Радио Маяк","https://radiomayak.ru/"],
+      ["НАШЕ","https://nashe.ru/"],
+      ["Maximum","https://www.maximum.ru/"],
+      ["Радио Зенит","http://www.radiozenit.ru/"]
+    ]},
+    { title:"ТВ-каналы", links:[
+      ["Первый канал","https://www.1tv.ru/"],
+      ["Россия / Смотрим","https://smotrim.ru/"],
+      ["Sportbox.ru","https://news.sportbox.ru/"],
+      ["НТВ","http://www.ntv.ru/"],
+      ["НТВ+","http://www.ntvplus.ru/"],
+      ["ТНТ","https://tnt-online.ru/"]
+    ]},
+    { title:"Прямая трансляция", links:[
+      ["Ростелеком ТВ","https://itv.rt.ru/"],
+      ["wwiTV","http://wwitv.com/portal.htm"],
+      ["wwiTV — Россия","http://wwitv.com/television/174.htm"],
+      ["WebTelek","http://www.webtelek.com/"]
+    ]}
+  ]
+}
+];
+
+/* ============================================================
+   ЛОГИКА
+   ============================================================ */
+const app     = document.getElementById('app');
+const chipsEl = document.getElementById('chips');
+const qEl     = document.getElementById('q');
+const foundEl = document.getElementById('found');
+const root    = document.documentElement;
+
+let activeSection = 'all';
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- favicon helpers ---------- */
+function domainOf(url){
+  try{
+    return new URL(url).hostname.replace(/^www\./,'');
+  }catch(e){ return ''; }
+}
+function isPrivateHost(host){
+  return /^\d+\.\d+\.\d+\.\d+$/.test(host) ||
+         host === 'localhost' ||
+         host.endsWith('.local');
+}
+function iconFor(url){
+  const host = domainOf(url);
+  if(!host || isPrivateHost(host)) return '';
+  return 'https://icons.duckduckgo.com/ip3/' + host + '.ico';
+}
+
+function hl(text, q){
+  if(!q) return esc(text);
+  const i = text.toLowerCase().indexOf(q);
+  if(i < 0) return esc(text);
+  return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+}
+
+function render(){
+  const q = qEl.value.trim().toLowerCase();
+  let html = '', total = 0;
+
+  DATA.forEach(sec => {
+    if(activeSection !== 'all' && activeSection !== sec.id) return;
+
+    let secHtml = '', count = 0;
+
+    sec.groups.forEach(g => {
+      const links = g.links.filter(([name, url]) =>
+        !q ||
+        name.toLowerCase().includes(q) ||
+        url.toLowerCase().includes(q) ||
+        g.title.toLowerCase().includes(q)
+      );
+      if(!links.length) return;
+
+      count += links.length;
+      secHtml += '<article class="card">' +
+        '<h3>' + hl(g.title, q) + '</h3>' +
+        '<div class="links">' +
+          links.map(([n, u]) => {
+            const icon = iconFor(u);
+            const img  = icon
+              ? '<img class="fav" src="' + esc(icon) + '" alt="" loading="lazy" ' +
+                'onerror="this.style.display=\'none\'">'
+              : '';
+            /* ссылка открывается в том же окне — без target и rel */
+            return '<a class="link" href="' + esc(u) + '">' +
+                     img + hl(n, q) +
+                   '</a>';
+          }).join('') +
+        '</div></article>';
+    });
+
+    if(!count) return;
+    total += count;
+
+    html += '<section class="section" id="sec-' + sec.id + '">' +
+      '<h2><span class="ico">' + sec.icon + '</span>' + sec.title +
+      '<span class="cnt">' + count + '</span></h2>' +
+      '<div class="groups">' + secHtml + '</div></section>';
+  });
+
+  app.innerHTML = html || '<p class="empty">Ничего не найдено 🤷</p>';
+  foundEl.textContent = total;
+}
+
+/* ---- чипы-разделы ---- */
+chipsEl.innerHTML =
+  '<button class="chip active" data-sec="all">Все</button>' +
+  DATA.map(s => '<button class="chip" data-sec="' + s.id + '">' + s.icon + ' ' + s.title + '</button>').join('');
+
+chipsEl.addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  chipsEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === btn));
+  activeSection = btn.dataset.sec;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ---- поиск ---- */
+let t;
+qEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 80); });
+
+/* ---- тема ---- */
+function setTheme(theme){
+  root.dataset.theme = theme;
+  localStorage.setItem('theme', theme);
+  document.getElementById('theme').textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+document.getElementById('theme').addEventListener('click', () => {
+  setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+});
+setTheme(
+  localStorage.getItem('theme') ||
+  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+);
+
+/* ---- горячая клавиша "/" ---- */
+document.addEventListener('keydown', e => {
+  if(e.key === '/' && document.activeElement !== qEl){
+    e.preventDefault();
+    qEl.focus();
+    qEl.select();
+  }
+  if(e.key === 'Escape' && document.activeElement === qEl){
+    qEl.value = '';
+    qEl.blur();
+    render();
+  }
+});
+
+/* ---- старт ---- */
+render();
+</script>
+</body>
+</html>
